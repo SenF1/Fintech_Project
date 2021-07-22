@@ -4,7 +4,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask_pymongo import PyMongo
-
+# import os
 
 # -- Initialization section --
 app = Flask(__name__)
@@ -18,11 +18,11 @@ events = [
 # name of database
 app.config['MONGO_DBNAME'] = 'project'
 
+# app.config['project_user_pass'] = os.getenv("project_user_pass")
+# project_user_pass = app.config["project_user_pass"]
+
 # URI of database
-app.config['MONGO_URI'] = 'mongodb+srv://project_user:password@cluster0.qf94p.mongodb.net/data?retryWrites=true&w=majority'
-
-print("YESS")
-
+app.config['MONGO_URI'] = 'mongodb+srv://project_user:a@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority'
 mongo = PyMongo(app)
 
 # -- Routes section --
@@ -46,6 +46,7 @@ def add():
 
     # return a message to the user
     return ""
+
 
 @app.route('/events/new', methods=['GET', 'POST'])
 def new_event():

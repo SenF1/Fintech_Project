@@ -9,14 +9,12 @@ from flask_pymongo import PyMongo
 # -- Initialization section --
 app = Flask(__name__)
 
-print("ok")
-
 events = [
         {"event":"First Day of Classes", "date":"2019-08-21"},
         {"event":"Winter Break", "date":"2019-12-20"},
         {"event":"Finals Begin", "date":"2019-12-01"}
     ]
-print("aaa")
+
 # name of database
 app.config['MONGO_DBNAME'] = 'project'
 
@@ -36,7 +34,7 @@ mongo = PyMongo(app)
 def index():
     return render_template('index.html', events = events)
 
-
+print("AAA")
 # CONNECT TO DB, ADD DATA
 
 @app.route('/add')

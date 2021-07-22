@@ -9,6 +9,8 @@ from flask_pymongo import PyMongo
 # -- Initialization section --
 app = Flask(__name__)
 
+print("ok")
+
 events = [
         {"event":"First Day of Classes", "date":"2019-08-21"},
         {"event":"Winter Break", "date":"2019-12-20"},

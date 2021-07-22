@@ -14,7 +14,7 @@ events = [
         {"event":"Winter Break", "date":"2019-12-20"},
         {"event":"Finals Begin", "date":"2019-12-01"}
     ]
-
+print("aaa")
 # name of database
 app.config['MONGO_DBNAME'] = 'project'
 

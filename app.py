@@ -3,7 +3,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-# from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo
 
 
 # -- Initialization section --
@@ -16,12 +16,12 @@ events = [
     ]
 
 # name of database
-# app.config['MONGO_DBNAME'] = 'database-name'
+app.config['MONGO_DBNAME'] = 'project'
 
 # URI of database
-# app.config['MONGO_URI'] = 'mongo-uri'
+app.config['MONGO_URI'] = 'mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluster0.qf94p.mongodb.net/data?retryWrites=true&w=majority'
 
-# mongo = PyMongo(app)
+mongo = PyMongo(app)
 
 # -- Routes section --
 # INDEX
@@ -44,3 +44,19 @@ def add():
 
     # return a message to the user
     return ""
+
+@app.route('/events/new', methods=['GET', 'POST'])
+def new_event():
+    if request.method == "GET":
+        return render_template('new_event.html')
+    elif request.method == "POST":
+#This is storing data from your form
+        event_name = request.form['event_name']
+        event_date = request.form['event_date']
+        user_name = request.form['user_name']
+#This is connecting to mongo and inserting data in your "Events" collection
+        collection = mongo.db.data
+        collection.insert({'event': event_name, 'date': event_date, 'user': user_name})
+        events = list(collection.find({}))
+        return render_template('index.html', events = events)
+

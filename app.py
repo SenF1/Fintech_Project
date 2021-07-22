@@ -19,7 +19,9 @@ events = [
 app.config['MONGO_DBNAME'] = 'project'
 
 # URI of database
-app.config['MONGO_URI'] = 'mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluster0.qf94p.mongodb.net/data?retryWrites=true&w=majority'
+app.config['MONGO_URI'] = 'mongodb+srv://project_user:password@cluster0.qf94p.mongodb.net/data?retryWrites=true&w=majority'
+
+print("YESS")
 
 mongo = PyMongo(app)
 

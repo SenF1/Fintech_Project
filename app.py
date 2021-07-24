@@ -14,16 +14,26 @@ app = Flask(__name__)
 #encryption relies on secret keys so they could be run
 app.secret_key = "testing"
 #connoct to your Mongo DB database
-client = pymongo.MongoClient('mongodb+srv://project_user:@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority')
+client = pymongo.MongoClient('mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority')
 
 #get the database name
 db = client.get_database('project')
 #get the particular collection that contains the data
 records = db.users
 
-#assign URLs to have a particular route 
-@app.route("/", methods=['post', 'get'])
+
+#This should be a home page, maybe with slide that will show features and stuffs.
+# Need to create another html page and make sure all pages include nav bar
+@app.route('/')
+@app.route('/home')
 def index():
+    return render_template('home.html')
+
+
+
+#assign URLs to have a particular route 
+@app.route("/signup", methods=['post', 'get'])
+def signup():
     message = ''
     #if method post in index
     if "email" in session:
@@ -39,6 +49,18 @@ def index():
         if user_found:
             message = 'There already is a user by that name'
             return render_template('index.html', message=message)
+        if user == "":
+            message = 'Please enter a username'
+            return render_template('index.html', message=message)
+        if email == "":
+            message = 'Please enter a email'
+            return render_template('index.html', message=message)
+        if password1 == "":
+            message = 'Please enter a password'
+            return render_template('index.html', message=message)
+        if password2 == "":
+            message = 'Please enter re-enter password'
+            return render_template('index.html', message=message)
         if email_found:
             message = 'This email already exists in database'
             return render_template('index.html', message=message)
@@ -46,13 +68,9 @@ def index():
             message = 'Passwords should match!'
             return render_template('index.html', message=message)
         else:
-            #hash the password and encode it
-            # hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
-            #assing them in a dictionary in key value pairs
             user_input = {'name': user, 'email': email, 'password': password2}
             #insert it in the record collection
             records.insert_one(user_input)
-            
             #find the new created account and its email
             user_data = records.find_one({"email": email})
             new_email = user_data['email']

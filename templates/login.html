@@ -1,11 +1,23 @@
 {% extends "base.html" %}
-{% block title %}Login System{% endblock %}
+{% block title %}The Ultimate Budget Planner{% endblock %}
 
 {% block content %}
 
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+  <!-- <strong>Holy guacamole!</strong>  -->
+   Please login to your account
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+
 {% if message  %}
-    <div class="alert alert-secondary" role="alert">
-        <p>{{ message }}</p>
+     <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 {% endif %}
 

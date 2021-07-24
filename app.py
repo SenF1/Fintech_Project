@@ -8,12 +8,15 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask import session, url_for
 import pymongo
+import os
 
 #set app as a Flask instance 
 app = Flask(__name__)
 #encryption relies on secret keys so they could be run
-app.secret_key = "testing"
-#connoct to your Mongo DB database
+app.config['app.secret_key'] = os.getenv("app.secret_key")
+app.secret_key = app.config["app.secret_key"]
+
+#connect to your Mongo DB database
 client = pymongo.MongoClient('mongodb+srv://project_user:@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority')
 
 #get the database name
@@ -49,25 +52,26 @@ def signup():
         if user_found:
             message = 'There already is a user by that name'
             return render_template('index.html', message=message)
-        if user == "":
+        elif user == "":
             message = 'Please enter a username'
             return render_template('index.html', message=message)
-        if email == "":
+        elif email == "":
             message = 'Please enter a email'
             return render_template('index.html', message=message)
-        if password1 == "":
+        elif password1 == "":
             message = 'Please enter a password'
             return render_template('index.html', message=message)
-        if password2 == "":
+        elif password2 == "":
             message = 'Please enter re-enter password'
             return render_template('index.html', message=message)
-        if email_found:
+        elif email_found:
             message = 'This email already exists in database'
             return render_template('index.html', message=message)
-        if password1 != password2:
+        elif password1 != password2:
             message = 'Passwords should match!'
             return render_template('index.html', message=message)
         else:
+            message = "User Created Successfully!"
             user_input = {'name': user, 'email': email, 'password': password2}
             #insert it in the record collection
             records.insert_one(user_input)
@@ -75,21 +79,27 @@ def signup():
             user_data = records.find_one({"email": email})
             new_email = user_data['email']
             #if registered redirect to logged in as the registered user
-            return render_template('logged_in.html', email=new_email)
+            return render_template('logged_in.html', email=new_email, message=message)
     return render_template('index.html')
 
 
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    message = 'Please login to your account'
+    message = ''
     if "email" in session:
         return redirect(url_for("logged_in"))
 
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
-
+        #Check if the input is empty
+        if email == "":
+            message = "Please enter your email!"
+            return render_template('login.html', message=message)
+        # elif password == "":
+        #     bad_message = "Please enter your password!"
+        #     return render_template('login.html', bad_message=bad_message)
         #check if email exists in database
         email_found = records.find_one({"email": email})
         if email_found:
@@ -115,8 +125,9 @@ def login():
 @app.route('/logged_in')
 def logged_in():
     if "email" in session:
+        message = "You have successfully logged in!"        
         email = session["email"]
-        return render_template('logged_in.html', email=email)
+        return render_template('logged_in.html', email=email, message=message)
     else:
         return redirect(url_for("login"))
 
@@ -124,9 +135,10 @@ def logged_in():
 def logout():
     if "email" in session:
         session.pop("email", None)
-        return render_template("signout.html")
+        message = "You have successfully logged out!"
+        return render_template("signout.html", message=message)
     else:
-        return render_template('index.html')
+        return render_template('home.html')
 
 
 

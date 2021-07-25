@@ -102,9 +102,6 @@ def login():
         if email == "":
             message = "Please enter your email!"
             return render_template('login.html', message=message)
-        # elif password == "":
-        #     bad_message = "Please enter your password!"
-        #     return render_template('login.html', bad_message=bad_message)
         #check if email exists in database
         email_found = records.find_one({"email": email})
         if email_found:

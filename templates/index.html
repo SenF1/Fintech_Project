@@ -4,24 +4,36 @@
 {% block content %}
 
 
-{% if message  %}
-     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{message}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-{% endif %}
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title w-100 font-weight-bold"><center>Sign up</center></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                    <form action="" method="post">
+                        <!-- Alert -->
+                        {% if message  %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% endif %}
 
-<form action="" method="post">
-    <div class="form-group">
+                        
+                       <div class="form-group">
         <label for="Fullname">Username</label>
         <input name="fullname" class="form-control" id="inputFullName" aria-describedby="emailHelp" placeholder="Enter full name">
         <small id="fullName" class="form-text text-muted">Please enter your username</small>
   </div>
   <div class="form-group">
         <label for="InputEmail">Email address</label>
-        <input name="email" class="form-control" id="InputEmail"  placeholder="Enter email">
+        <input name="email" class="form-control" id="InputEmail"  placeholder="email@example.com">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
@@ -35,9 +47,10 @@
 
     </div>
   <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+</div>
 
-
-</form>
 
 
 

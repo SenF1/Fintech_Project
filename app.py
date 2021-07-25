@@ -10,20 +10,25 @@ from flask import session, url_for
 import pymongo
 import os
 
+#sudo pip3 install dnspython
+
 #set app as a Flask instance 
 app = Flask(__name__)
 #encryption relies on secret keys so they could be run
-app.config['app.secret_key'] = os.getenv("app.secret_key")
-app.secret_key = app.config["app.secret_key"]
+
+#hiding the secret key is not working 
+# app.config['app.secret_key'] = os.getenv("app.secret_key")
+# app.secret_key = app.config["app.secret_key"]
+app.secret_key = "L9K0m3KPfAQA"
 
 #connect to your Mongo DB database
-client = pymongo.MongoClient('mongodb+srv://project_user:@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority')
+client = pymongo.MongoClient('mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority')
 
 #get the database name
 db = client.get_database('project')
 #get the particular collection that contains the data
 records = db.users
-
+transactions = db.data
 
 #This should be a home page, maybe with slide that will show features and stuffs.
 # Need to create another html page and make sure all pages include nav bar
@@ -130,6 +135,23 @@ def logged_in():
         return render_template('logged_in.html', email=email, message=message)
     else:
         return redirect(url_for("login"))
+
+@app.route('/transaction/new', methods=['GET', 'POST'])
+def add():
+    if "email" in session:
+        if request.method == "GET":
+            return render_template('logged_in.html.html')
+        elif request.method == "POST":
+            event_name = request.form['event_name']
+            event_date = request.form['event_date']
+            user_name = request.form['user_name']
+            user_input = {'event': event_name, 'date': event_date, 'user': user_name}
+            transactions.insert_one(user_input)  
+            datas = list(transactions.find({}))
+        return render_template('logged_in.html', datas=datas)
+    else:
+        return redirect(url_for("login"))
+
 
 @app.route("/logout", methods=["POST", "GET"])
 def logout():

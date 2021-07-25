@@ -3,6 +3,20 @@
 
 {% block content %}
 
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto"> 
+                <li class="nav-item">
+                    <a class="nav-link" href="/#">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+               
+            </ul>
+        </div>
+    </nav>
+
 {% if message  %}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{message}}
@@ -11,10 +25,25 @@
         </button>
     </div>
 {% endif %}
-
 <p>Hello You have Logged in as {{ email }}</p>
 
-
-
+    <div>
+        <form method="post" action="/transaction/new">
+            <label for="event_name">Event Name:</label>
+            <input type="text" name="event_name" value="">
+            <label for="event_date">Date:</label>
+            <input type="date" name="event_date" value="">
+            <label for="name">Name:</label>
+            <input type="name" name="user_name" value="">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div class="event-list">
+        <ul>
+          {% for event in datas %}
+            <li>{{ event.event }} - {{ event.date }}</li>
+          {% endfor %}
+        </ul>
+      </div>
 {% endblock %}
 

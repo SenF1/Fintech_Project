@@ -22,7 +22,7 @@ app = Flask(__name__)
 app.secret_key = "L9K0m3KPfAQA"
 
 #connect to your Mongo DB database
-client = pymongo.MongoClient('mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority')
+client = pymongo.MongoClient('mongodb+srv://project_user:@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority')
 
 #get the database name
 db = client.get_database('project')

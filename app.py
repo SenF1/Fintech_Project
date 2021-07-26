@@ -8,7 +8,8 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask import session, url_for
 import pymongo
-import os
+# import os
+
 
 #sudo pip3 install dnspython
 
@@ -28,7 +29,8 @@ client = pymongo.MongoClient('mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluste
 db = client.get_database('project')
 #get the particular collection that contains the data
 records = db.users
-transactions = db.data
+
+# transactions = db.data
 
 #The home page, maybe with slide that will show features and stuffs.
 @app.route('/')
@@ -64,7 +66,7 @@ def signup():
             return render_template('home.html', message=message)
         else:
             message = "User Created Successfully!"
-            user_input = {'name': user, 'email': email, 'password': password2}
+            user_input = {'name': user, 'email': email, 'password': password2, 'data':{'event': "", 'date': "", 'user': ""}}
             #insert it in the record collection
             records.insert_one(user_input)
             #find the new created account and its email
@@ -123,19 +125,33 @@ def logged_in():
 
 
 
-#The actual 记账日记 begin
-@app.route('/transaction/new', methods=['GET', 'POST'])
+@app.route('/logged_in/add', methods=['GET', 'POST'])
 def add():
     if "email" in session:
         if request.method == "GET":
-            return render_template('logged_in.html.html')
+            return render_template('logged_in.html')
         elif request.method == "POST":
+            # name = session["name"]
             event_name = request.form['event_name']
             event_date = request.form['event_date']
             user_name = request.form['user_name']
             user_input = {'event': event_name, 'date': event_date, 'user': user_name}
-            transactions.insert_one(user_input)  
-            datas = list(transactions.find({}))
+            records.insert(user_input)  
+            # db.record.update({user_input})
+            # db.records.update.many({'event': ""}, {'event': event_name})
+            # records.save({'_id':{"$oid":"60ff095966b4e9d5f18303b7"}, 'name':"David"})
+            # db.records.update({'event':""}, {$set: {'name':"new name"}})
+            # db.records.update({"name":name}, {"$set":{'data':user_input}})
+
+            # myquery = { "name": name }
+            # newvalues = { "$set": { "address": "Canyon 123" } }
+            # col.update_one(myquery, newvalues)
+
+            datas = list(records.find({}))
+
+
+            # for i in datas:
+            #     if i['email'] == 'email':  
         return render_template('logged_in.html', datas=datas)
     else:
         return redirect(url_for("login"))

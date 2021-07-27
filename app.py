@@ -66,7 +66,7 @@ def signup():
             return render_template('home.html', message=message)
         else:
             message = "User Created Successfully!"
-            user_input = {'name': user, 'email': email, 'password': password2, 'data':{'event': "", 'date': "", 'user': ""}}
+            user_input = {'name': user, 'email': email, 'password': password2}
             #insert it in the record collection
             records.insert_one(user_input)
             #find the new created account and its email
@@ -129,33 +129,44 @@ def logged_in():
 def add():
     if "email" in session:
         if request.method == "GET":
-            return render_template('logged_in.html')
-        elif request.method == "POST":
-            # name = session["name"]
-            event_name = request.form['event_name']
+            return redirect(url_for("logged_in"))
+        if request.method == "POST":
+            #Only email works, this line won't work with name or email
+            email = session["email"]
+            #Initialize the input datas
             event_date = request.form['event_date']
-            user_name = request.form['user_name']
-            user_input = {'event': event_name, 'date': event_date, 'user': user_name}
-            records.insert(user_input)  
-            # db.record.update({user_input})
-            # db.records.update.many({'event': ""}, {'event': event_name})
-            # records.save({'_id':{"$oid":"60ff095966b4e9d5f18303b7"}, 'name':"David"})
-            # db.records.update({'event':""}, {$set: {'name':"new name"}})
-            # db.records.update({"name":name}, {"$set":{'data':user_input}})
+            event_amount = request.form['event_amount']
+            event_description = request.form['event_description']
+            #Find the email in the data 
+            # user = records.find_one({'email':email})
+            #Combine all the input
+            user_input = {'date': event_date, 'amount': event_amount, 'description': event_description}
+            
+            # user["event"] = user_input
+            
+            # records.save(user) 
+            # records.update_one({"email": email}, {"$set": {"geolocCountry": event_amount}})
+            name_stored = "TXN on " + str(event_date)
+            records.update_one({"email": email}, {"$set": {name_stored : user_input}})
 
-            # myquery = { "name": name }
-            # newvalues = { "$set": { "address": "Canyon 123" } }
-            # col.update_one(myquery, newvalues)
-
-            datas = list(records.find({}))
-
-
-            # for i in datas:
-            #     if i['email'] == 'email':  
+            datas = list(records.find({'email':email}))
         return render_template('logged_in.html', datas=datas)
     else:
         return redirect(url_for("login"))
 
+
+# @app.route('/find')
+# def find():
+#     user = records.find_one({'name':'a'})
+#     return f'<h1>User: {user["email"]} password: {user["password"]} </h1>'
+
+# @app.route('/update')
+# def update():
+#     email = session["email"]
+#     user = records.find_one({'name':email})
+#     user["test"] = "test"
+#     records.save(user)
+#     return '<h1>Updated user!</h>'
 
 
 #Logout

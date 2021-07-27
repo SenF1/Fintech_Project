@@ -9,8 +9,7 @@ from bson.objectid import ObjectId
 from flask import session, url_for
 import pymongo
 # import os
-
-
+from datetime import datetime
 #sudo pip3 install dnspython
 
 #set app as a Flask instance 
@@ -36,7 +35,8 @@ records = db.users
 @app.route('/')
 @app.route('/home')
 def index():
-    return render_template('home.html')
+    return render_template('home.html', time = datetime.now())
+
 
 
 
@@ -119,7 +119,8 @@ def logged_in():
     if "email" in session:
         message = "You have successfully logged in!"        
         email = session["email"]
-        return render_template('logged_in.html', email=email, message=message)
+        datas = list(records.find({'email':email}))
+        return render_template('logged_in.html', email=email, message=message, datas=datas)
     else:
         return redirect(url_for("login"))
 
@@ -137,22 +138,58 @@ def add():
             event_date = request.form['event_date']
             event_amount = request.form['event_amount']
             event_description = request.form['event_description']
-            #Find the email in the data 
-            # user = records.find_one({'email':email})
             #Combine all the input
             user_input = {'date': event_date, 'amount': event_amount, 'description': event_description}
-            
-            # user["event"] = user_input
-            
-            # records.save(user) 
-            # records.update_one({"email": email}, {"$set": {"geolocCountry": event_amount}})
-            name_stored = "TXN on " + str(event_date)
-            records.update_one({"email": email}, {"$set": {name_stored : user_input}})
+            # name_stored = "TXN on " + str(event_date)
+            section = {event_date: user_input}
+
+            section_num = 1
+            section_name = 'section ' + str(section_num)
+
+            # while {section_name: {"$exists": True}}:
+            #     section_num+1
+            # else:
+            #     section_name = 'section ' + str(section_num)
+
+
+            print(section_name)
+
+            records.update_one({"email": email}, {"$set": {section_name : section}})
 
             datas = list(records.find({'email':email}))
         return render_template('logged_in.html', datas=datas)
     else:
         return redirect(url_for("login"))
+
+
+# @app.route('/logged_in/add', methods=['GET', 'POST'])
+# def add():
+#     if "email" in session:
+#         if request.method == "GET":
+#             return redirect(url_for("logged_in"))
+#         if request.method == "POST":
+#             #Only email works, this line won't work with name or email
+#             email = session["email"]
+#             #Initialize the input datas
+#             event_date = request.form['event_date']
+#             event_amount = request.form['event_amount']
+#             event_description = request.form['event_description']
+#             #Find the email in the data 
+#             # user = records.find_one({'email':email})
+#             #Combine all the input
+#             user_input = {'date': event_date, 'amount': event_amount, 'description': event_description}
+            
+#             # user["event"] = user_input
+            
+#             # records.save(user) 
+#             # records.update_one({"email": email}, {"$set": {"geolocCountry": event_amount}})
+#             name_stored = "TXN on " + str(event_date)
+#             records.update_one({"email": email}, {"$set": {name_stored : user_input}})
+
+#             datas = list(records.find({'email':email}))
+#         return render_template('logged_in.html', datas=datas)
+#     else:
+#         return redirect(url_for("login"))
 
 
 # @app.route('/find')

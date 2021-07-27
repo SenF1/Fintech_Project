@@ -2,6 +2,7 @@
 <html lang="en">
 <head><meta charset="utf-8">
 
+    
   <title>{% block title %}The Ultimate Budget Planner{%endblock %}</title>
 
     <!-- Font Awesome CSS -->
@@ -76,8 +77,8 @@
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
                         <ul>
-                        {% for event in datas %}
-                            <li>{{ event.event }} - {{ event.date }}</li>
+                        {% for section1 in datas %}
+                            <li>{{ section1.event_date }} - {{ section1.event_description }}</li>
                         {% endfor %}
                         </ul>
                     </div>

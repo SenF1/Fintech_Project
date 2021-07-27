@@ -66,7 +66,7 @@ def signup():
             return render_template('home.html', message=message)
         else:
             message = "User Created Successfully!"
-            user_input = {'name': user, 'email': email, 'password': password2}
+            user_input = {'name': user, 'email': email, 'password': password2, 'section 1':{'date': "", 'amount': "", 'description': ""}}
             #insert it in the record collection
             records.insert_one(user_input)
             #find the new created account and its email
@@ -140,21 +140,21 @@ def add():
             event_description = request.form['event_description']
             #Combine all the input
             user_input = {'date': event_date, 'amount': event_amount, 'description': event_description}
-            # name_stored = "TXN on " + str(event_date)
-            section = {event_date: user_input}
+            name_stored = "TXN on " + str(event_date)
+            section = {name_stored: user_input}
 
-            section_num = 1
-            section_name = 'section ' + str(section_num)
+            # section_num = 1
+            # section_name = 'section ' + str(section_num)
 
             # while {section_name: {"$exists": True}}:
             #     section_num+1
             # else:
             #     section_name = 'section ' + str(section_num)
 
-
-            print(section_name)
-
-            records.update_one({"email": email}, {"$set": {section_name : section}})
+            
+            # print(section_name)
+            datas = user_input
+            records.update_one({"email": email}, {"$set": {"section1" : section}})
 
             datas = list(records.find({'email':email}))
         return render_template('logged_in.html', datas=datas)

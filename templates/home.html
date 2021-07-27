@@ -95,7 +95,7 @@
         <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
     </div>
 
-    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+    <!-- <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
         <h4 id="scrollspyHeading1">Founders</h4>
         <div class="card">
             <img src="https://cdn.pixabay.com/photo/2021/01/04/10/41/icon-5887126_1280.png" alt="" style="width:10%">
@@ -110,7 +110,58 @@
             <h4><b>Sen Feng</b></h4> 
             <p>Co-Founder</p> 
         </div>
-    </div>
+    </div> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css" integrity="sha256-nwNjrH7J9zS/Ti4twtWX7OsC5QdQHCIKTv5cLMsGo68=" crossorigin="anonymous" />
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="section-title mb-4 pb-2">
+                <h4 class="title mb-4">Our Team Members</h4>
+                <p class="text-muted para-desc mx-auto mb-0">Build responsive, mobile-first projects on the web with the world's most popular front-end component library.</p>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+
+    <div class="row">
+        <div class="col-md-6 col-12 mt-4 pt-2">
+            <div class="team-list position-relative overflow-hidden shadow rounded">
+                <img src="{{url_for('static', filename='blank.png')}}" class="img-fluid float-left" alt="">
+                <div class="content float-right p-4">
+                    <h5 class="title mb-0">Maggie chen</h5>
+                    <small class="text-muted">Founder</small>
+                    <p class="text-muted mt-3">I must explain to you how all this mistaken idea of denouncing pleasure and system.</p>
+                    <ul class="list-unstyled follow social-icon social mb-0">
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-facebook" title="Facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-instagram" title="Instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-twitter" title="Twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-google-plus" title="Google +"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-linkedin" title="Linkedin"></i></a></li>
+                    </ul><!--end icon-->
+                </div>
+            </div>                        
+        </div><!--end col-->
+        
+        <div class="col-md-6 col-12 mt-4 pt-2">
+            <div class="team-list position-relative overflow-hidden shadow rounded">
+                <img src="{{url_for('static', filename='blank.png')}}" class="img-fluid float-left" alt="">
+                <div class="content float-right p-4">
+                    <h5 class="title mb-0">Sen Feng</h5>
+                    <small class="text-muted">Founder.</small>
+                    <p class="text-muted mt-3">I must explain to you how all this mistaken idea of denouncing pleasure and system.</p>
+                    <ul class="list-unstyled follow social-icon social mb-0">
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-facebook" title="Facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-instagram" title="Instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-twitter" title="Twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-google-plus" title="Google +"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-linkedin" title="Linkedin"></i></a></li>
+                    </ul><!--end icon-->
+                </div>
+            </div>                        
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+
 
     <!-- Modal for login -->
      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

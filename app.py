@@ -28,7 +28,7 @@ client = pymongo.MongoClient('mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluste
 db = client.get_database('project')
 #get the particular collection that contains the data
 records = db.users
-
+what = db.data
 # transactions = db.data
 
 #The home page, maybe with slide that will show features and stuffs.
@@ -66,7 +66,7 @@ def signup():
             return render_template('home.html', message=message)
         else:
             message = "User Created Successfully!"
-            user_input = {'name': user, 'email': email, 'password': password2, 'section 1':{'date': "", 'amount': "", 'description': ""}}
+            user_input = {'name': user, 'email': email, 'password': password2, 'section':{'date': "", 'amount': "", 'description': ""}}
             #insert it in the record collection
             records.insert_one(user_input)
             #find the new created account and its email
@@ -141,25 +141,34 @@ def add():
             #Combine all the input
             user_input = {'date': event_date, 'amount': event_amount, 'description': event_description}
             name_stored = "TXN on " + str(event_date)
-            section = {name_stored: user_input}
+            # section = {name_stored: user_input}
 
             # section_num = 1
             # section_name = 'section ' + str(section_num)
-
             # while {section_name: {"$exists": True}}:
-            #     section_num+1
-            # else:
+            #     section_num+=1
             #     section_name = 'section ' + str(section_num)
-
-            
+            # else:
+            #     section_name = 'section' + str(section_num)
+            # section_name = 'section1'
+            # if {'section1': {"$exists": True}}:
+            #     section_name = 'section2'
+            # elif {'section2': {"$exists": True}}:
+            #     section_name = 'section3'
+            # elif {'section3': {"$exists": True}}:
+            #     section_name = 'section4'
+            # else:
+            #     section_name = 'section5'
             # print(section_name)
+           
+            
             datas = user_input
-            records.update_one({"email": email}, {"$set": {"section1" : section}})
-
+            records.update_one({"email": email}, {"$set": {name_stored : user_input}})
+            # what.insert(section)
             datas = list(records.find({'email':email}))
         return render_template('logged_in.html', datas=datas)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("home"))
 
 
 # @app.route('/logged_in/add', methods=['GET', 'POST'])

@@ -144,8 +144,9 @@ def add():
             event_date = request.form['event_date']
             event_amount = request.form['event_amount']
             event_description = request.form['event_description']
+            event_type = request.form['event_type']
             #Combine all the input
-            user_input = {'date': event_date, 'amount': event_amount, 'description': event_description}
+            user_input = {'date': event_date, 'amount': event_amount, 'description': event_description, 'type': event_type}
             # name_stored = "TXN on " + str(event_date)
             # section = {name_stored: user_input}
             storage = {'email': email, 'holder': user_input}

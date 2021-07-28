@@ -328,11 +328,13 @@
                             <input type="date" name="event_date" value="" required> 
                         </div>
                         <div class="col-xs"> 
-                            <select class="form-select" aria-label="Default select example" required>
-                                <option selected>Open this select menu</option>
-                                <option value="1">Saving</option>
-                                <option value="2">Spending</option>
-                            </select>  
+                            <form method="POST" action="index.php?action=contact_agent">
+                                <select name="event_type" class="form-select" aria-label="Default select example" required>
+                                    <option selected>Select</option>
+                                    <option value="Saving">Saving</option>
+                                    <option value="Spending">Spending</option>
+                                </select>  
+                            </form>
                         </div>
                         <div class="col-xs">
                             <label for="event_amount">Amount:</label>
@@ -352,6 +354,7 @@
                 <li class="list-group-item">
                     Date: {{ data.holder.date }}<div class="col-6 border-right"></div>
                     Description: {{ data.holder.description }}<div class="col-6 border-right"></div>
+                    Type: {{ data.holder.type }}<div class="col-6 border-right"></div>
                     <!-- <hr style="height: 2px; width: 99%; background-color: #848484" /> -->
                     <hr style="height:0.5px;border-width:0;color:gray;background-color:gray">
                     Amount: {{ data.holder.amount }}<div class="col-6 border-right"></div>

@@ -66,15 +66,17 @@ def signup():
         else:
             message = "User Created Successfully!"
             user_input = {'name': user, 'email': email, 'password': password2}
-            storage = {'email': email, 'holder':{}}
+            # storage = {'email': email, 'holder':{}}
             #insert it in the record collection
             records.insert_one(user_input)
 
-            transactions.insert_one(storage)
+            # transactions.insert_one(storage)
             #find the new created account and its email
             user_data = records.find_one({"email": email})
             new_email = user_data['email']
             #if registered redirect to logged in as the registered user
+            # return redirect(url_for("logged_in"), email=new_email, message=message)
+            # redirect(url_for("logged_in")
             return render_template('logged_in.html', email=new_email, message=message)
     return render_template('home.html')
 

@@ -321,21 +321,44 @@
             <h1 class="display-4">Input Space</h1>
             <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
              <form method="post" action="/logged_in/add">
-            <label for="event_date">Date:</label>
-            <input type="date" name="event_date" value="" required>
-            <label for="event_amount">Amount:</label>
-            <input type="text" name="event_amount" value=""required>
-            <label for="name">Description:</label>
-            <input type="event_description" name="event_description" value=""required>
-            <input type="submit" value="Submit">
-        </form>
-                {% for data in datas %}
-                    <div class="shadow p-3 mb-5 bg-white rounded"><h4>{{ data.holder }}</h4></div>
-                    <!-- <div class="shadow p-3 mb-5 bg-white rounded"><h4>{{ data.section1 }}</h4></div> -->
-        
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs">
+                           <label for="event_date">Date:</label>
+                            <input type="date" name="event_date" value="" required> 
+                        </div>
+                        <div class="col-xs"> 
+                            <select class="form-select" aria-label="Default select example" required>
+                                <option selected>Open this select menu</option>
+                                <option value="1">Saving</option>
+                                <option value="2">Spending</option>
+                            </select>  
+                        </div>
+                        <div class="col-xs">
+                            <label for="event_amount">Amount:</label>
+                            <input type="text" name="event_amount" value=""required>                        
+                        </div>
+                        <div class="col-xs">
+                            <label for="name">Description:</label>
+                            <input type="event_description" name="event_description" value=""required>
+                            <input type="submit" value="Submit"> 
 
-                    <!-- <li>{{ data.section1 }} - {{ data.section1 }}</li> -->
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <ul class="list-group">
+                {% for data in datas %}
+                <li class="list-group-item">
+                    Date: {{ data.holder.date }}<div class="col-6 border-right"></div>
+                    Description: {{ data.holder.description }}<div class="col-6 border-right"></div>
+                    <!-- <hr style="height: 2px; width: 99%; background-color: #848484" /> -->
+                    <hr style="height:0.5px;border-width:0;color:gray;background-color:gray">
+                    Amount: {{ data.holder.amount }}<div class="col-6 border-right"></div>
+                </li>
+                    <h1></h1>
                 {% endfor %}
+            </ul>
 
 
          <div class="row">

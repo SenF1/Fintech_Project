@@ -28,8 +28,7 @@ client = pymongo.MongoClient('mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluste
 db = client.get_database('project')
 #get the particular collection that contains the data
 records = db.users
-what = db.data
-# transactions = db.data
+transactions = db.data
 
 #The home page, maybe with slide that will show features and stuffs.
 @app.route('/')
@@ -66,9 +65,12 @@ def signup():
             return render_template('home.html', message=message)
         else:
             message = "User Created Successfully!"
-            user_input = {'name': user, 'email': email, 'password': password2, 'saving': 0, 'income': 0, "spent": 0}
+            user_input = {'name': user, 'email': email, 'password': password2}
+            storage = {'email': email, 'holder':{}}
             #insert it in the record collection
             records.insert_one(user_input)
+
+            transactions.insert_one(storage)
             #find the new created account and its email
             user_data = records.find_one({"email": email})
             new_email = user_data['email']
@@ -113,13 +115,15 @@ def login():
 
 
 
+
+
 #Logged-in 
 @app.route('/logged_in')
 def logged_in():
     if "email" in session:
         message = "You have successfully logged in!"        
         email = session["email"]
-        datas = list(records.find({'email':email}))
+        datas = list(transactions.find({'email':email}))
         return render_template('logged_in.html', email=email, message=message, datas=datas)
     else:
         return redirect(url_for("login"))
@@ -140,65 +144,21 @@ def add():
             event_description = request.form['event_description']
             #Combine all the input
             user_input = {'date': event_date, 'amount': event_amount, 'description': event_description}
-            name_stored = "TXN on " + str(event_date)
+            # name_stored = "TXN on " + str(event_date)
             # section = {name_stored: user_input}
+            storage = {'email': email, 'holder': user_input}
+            transactions.insert_one(storage)
 
-            # section_num = 1
-            # section_name = 'section ' + str(section_num)
-            # while {section_name: {"$exists": True}}:
-            #     section_num+=1
-            #     section_name = 'section ' + str(section_num)
-            # else:
-            #     section_name = 'section' + str(section_num)
-            # section_name = 'section1'
-            # if {'section1': {"$exists": True}}:
-            #     section_name = 'section2'
-            # elif {'section2': {"$exists": True}}:
-            #     section_name = 'section3'
-            # elif {'section3': {"$exists": True}}:
-            #     section_name = 'section4'
-            # else:
-            #     section_name = 'section5'
-            # print(section_name)
-           
-            
-            datas = user_input
-            records.update_one({"email": email}, {"$set": {name_stored : user_input}})
+            # transactions.update_one({"email": email}, {"$set": {"1" : user_input}})
             # what.insert(section)
-            datas = list(records.find({'email':email}))
+            datas = list(transactions.find({'email':email}))
         return render_template('logged_in.html', datas=datas)
     else:
         return redirect(url_for("home"))
 
 
-# @app.route('/logged_in/add', methods=['GET', 'POST'])
-# def add():
-#     if "email" in session:
-#         if request.method == "GET":
-#             return redirect(url_for("logged_in"))
-#         if request.method == "POST":
-#             #Only email works, this line won't work with name or email
-#             email = session["email"]
-#             #Initialize the input datas
-#             event_date = request.form['event_date']
-#             event_amount = request.form['event_amount']
-#             event_description = request.form['event_description']
-#             #Find the email in the data 
-#             # user = records.find_one({'email':email})
-#             #Combine all the input
-#             user_input = {'date': event_date, 'amount': event_amount, 'description': event_description}
-            
-#             # user["event"] = user_input
-            
-#             # records.save(user) 
-#             # records.update_one({"email": email}, {"$set": {"geolocCountry": event_amount}})
-#             name_stored = "TXN on " + str(event_date)
-#             records.update_one({"email": email}, {"$set": {name_stored : user_input}})
 
-#             datas = list(records.find({'email':email}))
-#         return render_template('logged_in.html', datas=datas)
-#     else:
-#         return redirect(url_for("login"))
+
 
 
 # @app.route('/find')

@@ -3,7 +3,7 @@
 <head><meta charset="utf-8">
 
     
-  <title>{% block title %}The Ultimate Budget Planner{%endblock %}</title>
+  <title>{% block title %}NP Budget{%endblock %}</title>
 
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -24,7 +24,7 @@
     <!-- Nav bar  -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/home"><img src="{{url_for('static', filename='image.png')}}"  width="30" height="30" class="d-inline-block align-top" alt="">
-        The Ultimate Budget Planner</a>
+        NP Budget</a>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -318,8 +318,8 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">Input Space</h1>
-            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+            <h1 class="display-4">The Ultimate Budget Planner</h1>
+            <p class="lead">Please enter the date you made a transaction, amount you spend or earn, and a short description of your transaction.</p>
              <form method="post" action="/logged_in/add">
                 <div class="container">
                     <div class="row">

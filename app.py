@@ -66,7 +66,7 @@ def signup():
             return render_template('home.html', message=message)
         else:
             message = "User Created Successfully!"
-            user_input = {'name': user, 'email': email, 'password': password2, 'section':{'date': "", 'amount': "", 'description': ""}}
+            user_input = {'name': user, 'email': email, 'password': password2, 'saving': 0, 'income': 0, "spent": 0}
             #insert it in the record collection
             records.insert_one(user_input)
             #find the new created account and its email
@@ -213,6 +213,15 @@ def add():
 #     user["test"] = "test"
 #     records.save(user)
 #     return '<h1>Updated user!</h>'
+
+# @app.route('/push')
+# def push():
+#     email = session['email']
+#     user = records.find_one({'email':email})
+#     user_input = {'date': 'event_date', 'amount': 'event_amount', 'description': 'event_description'}
+#     records.update_one({"email": email}, {"$push": {user_input : user_input}})
+#     return '<h1>Pushed</h>'
+
 
 
 #Logout

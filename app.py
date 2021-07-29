@@ -64,7 +64,7 @@ def signup():
             message = 'Passwords should match!'
             return render_template('home.html', message=message)
         else:
-            message = "User Created Successfully!"
+            message1 = "User Created Successfully! Please login!"
             user_input = {'name': user, 'email': email, 'password': password2, 'total_saving':0, 'total_spending':0, 'account':0}
             # storage = {'email': email, 'holder':{}}
             #insert it in the record collection
@@ -77,7 +77,8 @@ def signup():
             #if registered redirect to logged in as the registered user
             # return redirect(url_for("logged_in"), email=new_email, message=message)
             # redirect(url_for("logged_in")
-            return render_template('logged_in.html', email=new_email, message=message)
+            return render_template('home.html', email=new_email,message1=message1)
+
     return render_template('home.html')
 
 
@@ -132,6 +133,17 @@ def logged_in():
     else:
         return redirect(url_for("login"))
 
+@app.route('/profile')
+def profile():
+    if "email" in session:
+        message = "You have successfully logged in!"        
+        email = session["email"]
+        datas = list(transactions.find({'email':email}))
+        user2 = list(records.find({'email':email}))
+
+        return render_template('logged_in.html', email=email, message=message, datas=datas, user2=user2)
+    else:
+        return redirect(url_for("login"))
 
 
 @app.route('/logged_in/add', methods=['GET', 'POST'])
@@ -201,6 +213,10 @@ def add():
 #     user = records.find_one({'name':'a'})
 #     return f'<h1>Cant find it</h1>'
 
+@app.route('/pagenotfound')
+def pagenotfound():
+    return render_template('404.html')
+
 # @app.route('/update')
 # def update():
 #     email = session["email"]
@@ -217,7 +233,11 @@ def add():
 #     records.update_one({"email": email}, {"$push": {user_input : user_input}})
 #     return '<h1>Pushed</h>'
 
+# @app.route('/update_general')
+# def update_general():
+#     event_date = request.form['event_date']
 
+#     return
 
 #Logout
 @app.route("/logout", methods=["POST", "GET"])

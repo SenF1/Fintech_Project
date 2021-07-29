@@ -58,7 +58,7 @@ tr:nth-child(even) {
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                 <li class="nav-item"> 
+                <li class="nav-item"> 
                     <a class="nav-link" href="/logged_in">Tracker</a>
                 </li>
 
@@ -77,24 +77,13 @@ tr:nth-child(even) {
         </div>
     </nav>
 
-
-
-    <!-- Printing messages such as login successfully or user created successfully -->
-    {% if message  %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{message}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    {% endif %}
-
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <hr>
-            <h1 class="display-4">The Ultimate Budget Planner</h1>
-            <p class="lead">Please enter the date you made a transaction, amount you spend or earn, and a short description of your transaction.</p>        
-          
+            <h1 class="display-4">Search</h1>
+            <p class="lead">We are working on searching option right now, stay tuned for updates.</p>        
+            <p class="lead">Feel free to use [Ctrl + F] to search data based in date, type, amount, or description </p>        
+
 
             <table style="width:100%">
                 <form method="post" action="/logged_in/add">
@@ -118,14 +107,14 @@ tr:nth-child(even) {
                     <th>
                         <label for="name">Description:</label>
                         <input type="event_description" name="event_description" value=""required>
-                        <input type="submit" value="Submit"> 
+                        <input type="submit" value="Search"> 
                     </th>
 
                 </tr>
                 </form>
             </table>
             
-
+<!-- 
             <ul class="list-group">
                 <li class="list-group-item">
                     {% for user in user2 %}
@@ -138,24 +127,10 @@ tr:nth-child(even) {
                     <p style="color:red;"> Total Spending: ${{ user.total_spending }}</p>
                     {% endfor %}                
                 </li>
-            </ul>
+            </ul> -->
             <br>
             
 
-
-<!--             
-            <ul class="list-group">
-                {% for data in datas %}
-                <li class="list-group-item">
-                    Date: {{ data.holder.date }}<div class="col-6 border-right"></div>
-                    Type: {{ data.holder.type }}<div class="col-6 border-right"></div>
-                    Description: {{ data.holder.description }}<div class="col-6 border-right"></div>
-                    <hr style="height:0.5px;border-width:0;color:gray;background-color:gray">
-                    Amount: ${{ data.holder.amount }}<div class="col-6 border-right"></div>
-                </li>
-                    <h1></h1>
-                {% endfor %}
-            </ul> -->
 
             <table>
                 <tr>
@@ -183,6 +158,13 @@ tr:nth-child(even) {
 <br>
 <br>  
 </div>
+    
+
+    
+
+    
+
+   
 
   
 
@@ -258,7 +240,8 @@ tr:nth-child(even) {
                 </div>
             </div>
         </footer>
-    <!-- Large modal -->
+
+<!-- Large modal -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -292,7 +275,6 @@ tr:nth-child(even) {
                         </div>
                         <div class="form-group">
                             <label class="form-label">E-mail</label>
-                            {{datas.email}}
                             <input type="text" class="form-control mb-1" value="username@mail.com">
                         </div>
                         <div class="form-group">
@@ -489,7 +471,6 @@ tr:nth-child(even) {
             </div>
         </div>
     </div>
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

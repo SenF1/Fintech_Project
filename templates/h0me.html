@@ -21,33 +21,37 @@
     <!-- Header -->
     <!-- Nav Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/home"><img src="{{url_for('static', filename='image.png')}}"  width="30" height="30" class="d-inline-block align-top" alt="">
+        <a class="navbar-brand" href="/h0me"><img src="{{url_for('static', filename='image.png')}}"  width="30" height="30" class="d-inline-block align-top" alt="">
         NP Budget</a>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/h0me">Home <span class="sr-only">(current)</span></a>
                 </li>
-                 <li class="nav-item">
+                 <li class="nav-item active">
                     <a class="nav-link" href="#scrollspyHeading2">About</a>
                 </li>
-                 <li class="nav-item">
+               <li class="nav-item active">
                     <a class="nav-link" href="#scrollspyHeading1">Our Team</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <!-- <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal1">
-                Sign up
-                </button> -->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal1" href="/signup">Sign up</a>
+                <li class="nav-item"> 
+                    <a class="nav-link" href="/logged_in">Tracker</a>
                 </li>
-                <!-- <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
-                Login
-                </button> -->
+
+                <li class="nav-item"> 
+                    <a class="nav-link" href="/search">Search</a>
+                </li>
+
+                <li class="nav-item"> 
+                    <a class="nav-link" href="/login" data-toggle="modal" data-target=".bd-example-modal-lg">Profile</a>
+                </li>
+                
                 <li class="nav-item">
-                    <a class="nav-link" href="/login" data-toggle="modal" data-target="#exampleModal">Login</a>
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>

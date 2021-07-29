@@ -36,8 +36,9 @@ transactions = db.data
 def index():
     return render_template('home.html', time = datetime.now())
 
-
-
+@app.route('/h0me')
+def index1():
+    return render_template('h0me.html', time = datetime.now())
 
 #This is for the sign up system
 @app.route("/signup", methods=['post', 'get'])
@@ -124,26 +125,25 @@ def login():
 @app.route('/logged_in')
 def logged_in():
     if "email" in session:
-        message = "You have successfully logged in!"        
+        # message = "You have successfully logged in!"        
         email = session["email"]
         datas = list(transactions.find({'email':email}))
         user2 = list(records.find({'email':email}))
 
-        return render_template('logged_in.html', email=email, message=message, datas=datas, user2=user2)
+        return render_template('logged_in.html', email=email, datas=datas, user2=user2)
     else:
         return redirect(url_for("login"))
 
-@app.route('/profile')
-def profile():
-    if "email" in session:
-        message = "You have successfully logged in!"        
-        email = session["email"]
-        datas = list(transactions.find({'email':email}))
-        user2 = list(records.find({'email':email}))
+# @app.route('/profile')
+# def profile():
+#     if "email" in session:
+#         email = session["email"]
+#         datas = list(transactions.find({'email':email}))
+#         user2 = list(records.find({'email':email}))
 
-        return render_template('logged_in.html', email=email, message=message, datas=datas, user2=user2)
-    else:
-        return redirect(url_for("login"))
+#         return render_template('logged_in.html', email=email, datas=datas, user2=user2)
+#     else:
+#         return redirect(url_for("login"))
 
 
 @app.route('/logged_in/add', methods=['GET', 'POST'])
@@ -216,6 +216,17 @@ def add():
 @app.route('/pagenotfound')
 def pagenotfound():
     return render_template('404.html')
+
+@app.route('/search')
+def search():
+    if "email" in session:
+        email = session["email"]
+        user = transactions.find_one({'email':email})
+        email = session["email"]
+       
+        return render_template('search.html', email=email, user=user)
+    else:
+        return redirect(url_for("login"))
 
 # @app.route('/update')
 # def update():

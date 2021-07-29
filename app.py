@@ -65,7 +65,7 @@ def signup():
             return render_template('home.html', message=message)
         else:
             message = "User Created Successfully!"
-            user_input = {'name': user, 'email': email, 'password': password2}
+            user_input = {'name': user, 'email': email, 'password': password2, 'total_saving':0, 'total_spending':0, 'account':0}
             # storage = {'email': email, 'holder':{}}
             #insert it in the record collection
             records.insert_one(user_input)
@@ -126,7 +126,9 @@ def logged_in():
         message = "You have successfully logged in!"        
         email = session["email"]
         datas = list(transactions.find({'email':email}))
-        return render_template('logged_in.html', email=email, message=message, datas=datas)
+        user2 = list(records.find({'email':email}))
+
+        return render_template('logged_in.html', email=email, message=message, datas=datas, user2=user2)
     else:
         return redirect(url_for("login"))
 
@@ -145,7 +147,21 @@ def add():
             event_amount = request.form['event_amount']
             event_description = request.form['event_description']
             event_type = request.form['event_type']
+
+            if event_type == 'Saving':
+                user = records.find_one({'email':email})
+                user["account"] += int(event_amount)
+                user["total_saving"] += int(event_amount)
+                records.save(user)
+
+            if event_type == 'Spending':
+                user = records.find_one({'email':email})
+                user["account"] -= int(event_amount)
+                user["total_spending"] += int(event_amount)
+                records.save(user)
+
             #Combine all the input
+
             user_input = {'date': event_date, 'amount': event_amount, 'description': event_description, 'type': event_type}
             # name_stored = "TXN on " + str(event_date)
             # section = {name_stored: user_input}
@@ -155,19 +171,35 @@ def add():
             # transactions.update_one({"email": email}, {"$set": {"1" : user_input}})
             # what.insert(section)
             datas = list(transactions.find({'email':email}))
-        return render_template('logged_in.html', datas=datas)
+            user2 = list(records.find({'email':email}))
+
+        return render_template('logged_in.html', datas=datas, user2=user2)
     else:
         return redirect(url_for("home"))
 
 
 
-
+# @app.route('/update')
+# def update():
+# #    if event_type == 'saving':
+#     # total_saving = list(records.find({'email':email}, {'total_saving'}))
+#     # total_saving += event_amount
+#     # records.update({'email': email}, { "$inc": { "total_saving": event_amount } })
+#     event_amount = 32
+#     email = session["email"]
+#     user = records.find_one({'email':email})
+#     user["total_saving"] += event_amount
+#     records.save(user)
+#     # records.update_one({"email": email}, {"$set": {"total_saving" : total_saving}})
+    
+#     return f'<h1>Success</h1>'
 
 
 # @app.route('/find')
 # def find():
+#     print(records.find({'email':{"$in":['d'],"$exists":"true"}}))
 #     user = records.find_one({'name':'a'})
-#     return f'<h1>User: {user["email"]} password: {user["password"]} </h1>'
+#     return f'<h1>Cant find it</h1>'
 
 # @app.route('/update')
 # def update():

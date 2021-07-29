@@ -337,7 +337,7 @@
                             </form>
                         </div>
                         <div class="col-xs">
-                            <label for="event_amount">Amount:</label>
+                            <label for="event_amount">Amount: $</label>
                             <input type="text" name="event_amount" value=""required>                        
                         </div>
                         <div class="col-xs">
@@ -349,6 +349,23 @@
                     </div>
                 </div>
             </form>
+
+            <ul class="list-group">
+                <li class="list-group-item">
+                    {% for user in user2 %}
+                    <p style="color:black;">Account: ${{ user.account }}</p>
+                    {% endfor %}
+                    {% for user in user2 %}
+                    <p style="color:rgb(52, 184, 0);">Total Saving: ${{ user.total_saving }}</p>
+                    {% endfor %}
+                    {% for user in user2 %}
+                    <p style="color:red;"> Total Spending: ${{ user.total_spending }}</p>
+                    {% endfor %}                
+                </li>
+            </ul>
+            <br>
+            
+
             <ul class="list-group">
                 {% for data in datas %}
                 <li class="list-group-item">
@@ -357,30 +374,11 @@
                     Type: {{ data.holder.type }}<div class="col-6 border-right"></div>
                     <!-- <hr style="height: 2px; width: 99%; background-color: #848484" /> -->
                     <hr style="height:0.5px;border-width:0;color:gray;background-color:gray">
-                    Amount: {{ data.holder.amount }}<div class="col-6 border-right"></div>
+                    Amount: ${{ data.holder.amount }}<div class="col-6 border-right"></div>
                 </li>
                     <h1></h1>
                 {% endfor %}
             </ul>
-
-
-         <div class="row">
-        <div class="col-md-6 col-12 mt-4 pt-2">
-            <div class="team-list position-relative overflow-hidden shadow rounded">
-                <div class="content float-left p-4">
-                    <h5 class="title mb-0">Saving</h5>
-                </div>
-            </div>                        
-        </div><!--end col-->
-        
-        <div class="col-md-6 col-12 mt-4 pt-2">
-            <div class="team-list position-relative overflow-hidden shadow rounded">
-                <div class="content float-left p-4">
-                    <h5 class="title mb-0">Spending</h5>
-                </div>
-            </div>                        
-        </div><!--end col-->
-    </div><!--end row-->
 </div>
 
 

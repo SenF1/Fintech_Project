@@ -8,21 +8,18 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask import session, url_for
 import pymongo
-# import os
+import os
 from datetime import datetime
 #sudo pip3 install dnspython
 
-#set app as a Flask instance 
+# -- Initialization section --
 app = Flask(__name__)
-#encryption relies on secret keys so they could be run
+app.secret_key = os.getenv('KEY')
+app.config['URL'] = os.getenv("URL")
+URL = app.config['URL']
 
-#hiding the secret key is not working 
-# app.config['app.secret_key'] = os.getenv("app.secret_key")
-# app.secret_key = app.config["app.secret_key"]
-app.secret_key = "L9K0m3KPfAQA"
 
-#connect to your Mongo DB database
-client = pymongo.MongoClient('mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority')
+client = pymongo.MongoClient(URL)
 
 #get the database name
 db = client.get_database('project')

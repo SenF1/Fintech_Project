@@ -15,11 +15,16 @@ from datetime import datetime
 # -- Initialization section --
 app = Flask(__name__)
 app.secret_key = os.getenv('KEY')
-app.config['URL'] = os.getenv("URL")
-URL = app.config['URL']
+
+app.config['MONGO_URI'] = os.getenv("URI")
+
+# name of database
+
+# URI of database
+URI = app.config['MONGO_URI']
 
 
-client = pymongo.MongoClient(URL)
+client = pymongo.MongoClient(URI)
 
 #get the database name
 db = client.get_database('project')

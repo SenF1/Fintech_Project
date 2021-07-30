@@ -16,15 +16,8 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = os.getenv('KEY')
 
-app.config['MONGO_URI'] = os.getenv("URI")
 
-# name of database
-
-# URI of database
-URI = app.config['MONGO_URI']
-
-
-client = pymongo.MongoClient(URI)
+client = pymongo.MongoClient('mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority')
 
 #get the database name
 db = client.get_database('project')

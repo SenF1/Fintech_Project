@@ -8,14 +8,14 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask import session, url_for
 import pymongo
-import os
+# import os
 from datetime import datetime
 #sudo pip3 install dnspython
 
 # -- Initialization section --
 app = Flask(__name__)
-app.secret_key = os.getenv('KEY')
-
+# app.secret_key = os.getenv('KEY')
+app.secret_key = "L9K0m3KPfAQA"
 
 client = pymongo.MongoClient('mongodb+srv://project_user:61WAQwDQJZPYFjmF@cluster0.qf94p.mongodb.net/project?retryWrites=true&w=majority')
 
